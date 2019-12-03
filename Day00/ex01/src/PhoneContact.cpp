@@ -6,7 +6,7 @@
 /*   By: bdeomin <bdeomin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/02 17:32:42 by bdeomin           #+#    #+#             */
-/*   Updated: 2019/12/03 14:43:50 by bdeomin          ###   ########.fr       */
+/*   Updated: 2019/12/03 21:25:02 by bdeomin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,6 +83,13 @@ PhoneContact	PhoneContact::createContact(void) const
 	std::getline(std::cin, _underwear_color, '\n');
 	std::cout << "Input Darkest secret: ";
 	std::getline(std::cin, _postal_address, '\n');
+	std::cout << std::endl;
+	if (std::cin.eof())
+	{
+		std::system("clear");
+		std::cout << "\x1b[32mClose the programm\x1b[0m" << std::endl;
+		exit(EXIT_SUCCESS);
+	}
 	return (PhoneContact(_first_name, _last_name, _nickname, _login, _postal_address, _email_address,
 			_phone_number, _birthday_date, _favorite_meal, _underwear_color, _darkest_secret));
 }

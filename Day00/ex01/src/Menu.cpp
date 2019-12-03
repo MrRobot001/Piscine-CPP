@@ -6,7 +6,7 @@
 /*   By: bdeomin <bdeomin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/02 21:17:59 by bdeomin           #+#    #+#             */
-/*   Updated: 2019/12/03 15:11:37 by bdeomin          ###   ########.fr       */
+/*   Updated: 2019/12/03 21:26:51 by bdeomin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,14 @@ void	Menu::Run(void)
 		std::cout << "<3>.EXIT and close program" << std::endl;
 		std::cout << std::endl << "Input : ";
 		std::getline(std::cin, comand, '\n');
-		if (comand == "ADD")
+		if (std::cin.eof())
+		{
+			std::cout << std::endl;
+			std::system("clear");
+			std::cout << "\x1b[32mClose the programm\x1b[0m" << std::endl;
+			exit(EXIT_SUCCESS);
+		}
+		else if (comand == "ADD")
 			i = 1;
 		else if (comand == "SEARCH")
 			i = 2;
@@ -66,6 +73,7 @@ void	Menu::Run(void)
 		}
 		case 3:
 		{
+			std::system("clear");
 			std::cout << "\x1b[32mClose the programm\x1b[0m" << std::endl;
 			break ;
 		}
