@@ -6,7 +6,7 @@
 /*   By: bdeomin <bdeomin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/02 17:40:51 by bdeomin           #+#    #+#             */
-/*   Updated: 2019/12/02 23:00:42 by bdeomin          ###   ########.fr       */
+/*   Updated: 2019/12/03 14:42:14 by bdeomin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,16 +22,12 @@ int				Warehouse::getCount(void) const
 void			Warehouse::addContact(PhoneContact _contact)
 {
 	if (this->count > 7)
+		std::cout << "\x1b[31mPhonebook is full. Contact not added\x1b[0m" << std::endl;
+	else
 	{
-		std::cout << "Phonebook is full" << std::endl;
-		return ;
+		this->contacts[this->count++] = _contact;
+		std::cout << "\x1b[32mContact created\x1b[0m" << std::endl;
 	}
-	this->contacts[this->count++] = _contact;
-}
-
-PhoneContact	Warehouse::getContact(int number) const
-{
-	return (this->contacts[number]);
 }
 
 void			Warehouse::displayPhonebook(void) const
@@ -41,11 +37,15 @@ void			Warehouse::displayPhonebook(void) const
 	index = -1;
 	if (this->count == 0)
 	{
-		std::cout << "Sorry... Phonebook is empty. Contact not added" << std::endl << std::endl;
+		std::cout << "\x1b[33mSorry... Phonebook is empty.\x1b[0m" <<  std::endl;
 		return ;
 	}
+	std::cout << std::setw(44) << std::setfill('-') << '-';
+	std::cout << std::endl;
 	while (++index < this->count)
 		this->contacts[index].displayContact(index);
+	std::cout << std::setw(44) << std::setfill('-') << '-';
+	std::cout << std::endl;
 }
 
 Warehouse::~Warehouse(void) {}

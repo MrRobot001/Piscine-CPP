@@ -6,7 +6,7 @@
 /*   By: bdeomin <bdeomin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/02 17:32:42 by bdeomin           #+#    #+#             */
-/*   Updated: 2019/12/02 23:03:20 by bdeomin          ###   ########.fr       */
+/*   Updated: 2019/12/03 14:43:50 by bdeomin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,10 +30,10 @@ void		PhoneContact::displayField(std::string _field) const
 	if (_field.size() > 10)
 	{
 		_field.resize(9);
-		std::cout << std::setw(9) << _field << '.';
+		std::cout << std::setw(9) << std::setfill(' ') << _field << '.';
 	}
 	else
-		std::cout << std::setw(10) << std::right << _field;
+		std::cout << std::setw(10) << std::setfill(' ') << std::right << _field;
 	std::cout << '|';
 }
 

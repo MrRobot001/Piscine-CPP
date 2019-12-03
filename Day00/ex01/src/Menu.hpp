@@ -6,11 +6,12 @@
 /*   By: bdeomin <bdeomin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/02 21:17:54 by bdeomin           #+#    #+#             */
-/*   Updated: 2019/12/02 21:33:11 by bdeomin          ###   ########.fr       */
+/*   Updated: 2019/12/03 14:55:02 by bdeomin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Warehouse.hpp"
+#include <termios.h>
 
 class Menu
 {

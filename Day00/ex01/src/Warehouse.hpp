@@ -6,7 +6,7 @@
 /*   By: bdeomin <bdeomin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/02 17:40:48 by bdeomin           #+#    #+#             */
-/*   Updated: 2019/12/02 21:13:58 by bdeomin          ###   ########.fr       */
+/*   Updated: 2019/12/03 13:41:24 by bdeomin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,6 @@ class Warehouse
 
 		int				getCount(void) const;
 		void			addContact(PhoneContact _contact);
-		PhoneContact	getContact(int number) const;
 		void			displayPhonebook(void) const;
 
 		virtual			~Warehouse(void);

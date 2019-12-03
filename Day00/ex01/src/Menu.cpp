@@ -6,12 +6,12 @@
 /*   By: bdeomin <bdeomin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/02 21:17:59 by bdeomin           #+#    #+#             */
-/*   Updated: 2019/12/02 23:00:51 by bdeomin          ###   ########.fr       */
+/*   Updated: 2019/12/03 15:11:37 by bdeomin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Menu.hpp"
-
+#include <stdio.h>
 Menu*	Menu::_self(0);
 
 Menu*	Menu::Create_menu(void)
@@ -24,39 +24,56 @@ Menu*	Menu::Create_menu(void)
 void	Menu::Run(void)
 {
 	int			i;
-	std::string	ch;
+	std::string	comand;
 
 	do
 	{
+		i = 0;
+		std::system("clear");
 		std::cout <<  std::endl << "--------------- MENU ---------------" << std::endl;
 		std::cout << "<1>.ADD Contact in Phonebook" << std::endl;
 		std::cout << "<2>.SEARCH in Phonebook" << std::endl;
 		std::cout << "<3>.EXIT and close program" << std::endl;
 		std::cout << std::endl << "Input : ";
-		std::getline(std::cin, ch, '\n');
-		i = atoi(ch.c_str());
-
+		std::getline(std::cin, comand, '\n');
+		if (comand == "ADD")
+			i = 1;
+		else if (comand == "SEARCH")
+			i = 2;
+		else if (comand == "EXIT")
+			i = 3;
 		switch (i)
 		{
 		case 1:
 		{
+			std::system("clear");
 			PhoneContact contact;
 
-			Phonebook.addContact(contact.createContact());
+			if (Phonebook.getCount() < 8)
+				contact = contact.createContact();
+			Phonebook.addContact(contact);
+			std::cout << std::endl << "Press enter to continue ...";
+			std::cin.get();
 			break ;
 		}
 		case 2:
 		{
+			std::system("clear");
 			Phonebook.displayPhonebook();
+			std::cout << std::endl << "Press enter to continue ...";
+			std::cin.get();
 			break ;
 		}
 		case 3:
 		{
-			std::cout << "Close the programm" << std::endl;
+			std::cout << "\x1b[32mClose the programm\x1b[0m" << std::endl;
 			break ;
 		}
 		default:
-			std::cout << "Your choise is not correct..." << std::endl << std::endl;
+			std::system("clear");
+			std::cout << "\x1b[31mYour choise is not correct...\x1b[0m" << std::endl;
+			std::cout << std::endl << "Press enter to continue ...";
+			std::cin.get();
 		}
 	} while (i != 3);
 }
