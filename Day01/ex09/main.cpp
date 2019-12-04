@@ -5,22 +5,18 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: bdeomin <bdeomin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/12/04 20:34:14 by bdeomin           #+#    #+#             */
-/*   Updated: 2019/12/04 21:19:53 by bdeomin          ###   ########.fr       */
+/*   Created: 2019/12/04 21:17:54 by bdeomin           #+#    #+#             */
+/*   Updated: 2019/12/04 22:00:47 by bdeomin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "Human.hpp"
+#include "Logger.hpp"
 
 int		main(void)
 {
-	Human human;
+	Logger lg("file.txt");
 
-	std::string target = "Jonny: the fastest hand in the wild west.";
-
-	human.action("mellee", target);
-	human.action("ranged", target);
-	human.action("shout", target);
-	human.action("HP", target);
+	lg.log("console", "Use Console");
+	lg.log("file", "Use File");
 	return (0);
 }
