@@ -1,18 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ex01.cpp                                           :+:      :+:    :+:   */
+/*   main.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bdeomin <bdeomin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/12/03 22:39:10 by bdeomin           #+#    #+#             */
-/*   Updated: 2019/12/03 22:56:51 by bdeomin          ###   ########.fr       */
+/*   Created: 2019/12/04 20:34:14 by bdeomin           #+#    #+#             */
+/*   Updated: 2019/12/04 21:14:53 by bdeomin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-void memoryLeak()
+#include "Human.hpp"
+
+int		main(void)
 {
-	std::string* panthere = new std::string("String panthere");
-	std::cout << *panthere << std::endl;
-	delete panthere;
+	Human human;
+
+	std::string target = "Jonny: the fastest hand in the wild west.";
+
+	human.action("mellee", target);
+	human.action("ranged", target);
+	human.action("shout", target);
+	human.action("HP", target);
 }

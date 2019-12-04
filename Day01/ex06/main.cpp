@@ -1,18 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ex01.cpp                                           :+:      :+:    :+:   */
+/*   main.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bdeomin <bdeomin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/12/03 22:39:10 by bdeomin           #+#    #+#             */
-/*   Updated: 2019/12/03 22:56:51 by bdeomin          ###   ########.fr       */
+/*   Created: 2019/12/04 18:21:45 by bdeomin           #+#    #+#             */
+/*   Updated: 2019/12/04 19:17:28 by bdeomin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-void memoryLeak()
+#include "HumanA.hpp"
+#include "HumanB.hpp"
+
+int main()
 {
-	std::string* panthere = new std::string("String panthere");
-	std::cout << *panthere << std::endl;
-	delete panthere;
+	//Weapon club = Weapon("crude spiked club");
+	//HumanA bob("Bob", club);
+	//bob.attack();
+	//club.setType("some other type of club");
+	//bob.attack();
+
+	Weapon club = Weapon("crude spiked club");
+	HumanB jim("Jim");
+	jim.setWeapon(club);
+	jim.attack();
+	club.setType("some other type of club");
+	jim.attack();
 }

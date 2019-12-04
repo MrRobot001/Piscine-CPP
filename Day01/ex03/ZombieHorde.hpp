@@ -1,18 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ex01.cpp                                           :+:      :+:    :+:   */
+/*   ZombieHorde.hpp                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bdeomin <bdeomin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/12/03 22:39:10 by bdeomin           #+#    #+#             */
-/*   Updated: 2019/12/03 22:56:51 by bdeomin          ###   ########.fr       */
+/*   Created: 2019/12/04 15:50:03 by bdeomin           #+#    #+#             */
+/*   Updated: 2019/12/04 16:00:38 by bdeomin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-void memoryLeak()
+#ifndef ZOMBIEHORDE_H
+#define ZOMBIEHORDE_H
+
+#include "Zombie.hpp"
+
+#define NUMB_OF_NAMES 16
+#define NUMB_OF_TYPES 12
+
+class ZombieHorde
 {
-	std::string* panthere = new std::string("String panthere");
-	std::cout << *panthere << std::endl;
-	delete panthere;
-}
+	private:
+		int					zomb_count;
+		Zombie				*zombies;
+		static std::string	names[NUMB_OF_NAMES];
+		static std::string	types[NUMB_OF_TYPES];
+	public:
+		ZombieHorde(int N);
+		~ZombieHorde(void);
+
+		void	announce(void) const;
+};
+
+#endif

@@ -1,18 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ex01.cpp                                           :+:      :+:    :+:   */
+/*   Zombie.hpp                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bdeomin <bdeomin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/12/03 22:39:10 by bdeomin           #+#    #+#             */
-/*   Updated: 2019/12/03 22:56:51 by bdeomin          ###   ########.fr       */
+/*   Created: 2019/12/04 12:30:19 by bdeomin           #+#    #+#             */
+/*   Updated: 2019/12/04 13:10:05 by bdeomin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-void memoryLeak()
+#ifndef ZOMBIE_HPP
+#define ZOMBIE_HPP
+
+#include <iostream>
+#include <string>
+
+class Zombie
 {
-	std::string* panthere = new std::string("String panthere");
-	std::cout << *panthere << std::endl;
-	delete panthere;
-}
+private:
+	std::string		name;
+	std::string		type;
+public:
+	Zombie(std::string _name, std::string _type);
+	~Zombie(void);
+
+	void		announce(void);
+};
+
+#endif
