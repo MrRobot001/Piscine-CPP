@@ -92,7 +92,6 @@ int		main(int argc, char **argv)
 		return (1);
 	}
 	int pos = 0;
-	//std::string str = "( 18.18 + 3.03 ) * 2";
 	std::cout << parsing(argv[1]/*str*/, pos) << std::endl;
 	return(0);
 }
