@@ -1,31 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   SuperTrap.hpp                                      :+:      :+:    :+:   */
+/*   PlasmaRifle.hpp                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bdeomin <bdeomin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/12/06 23:06:41 by bdeomin           #+#    #+#             */
-/*   Updated: 2019/12/07 19:26:34 by bdeomin          ###   ########.fr       */
+/*   Created: 2019/12/07 19:31:54 by bdeomin           #+#    #+#             */
+/*   Updated: 2019/12/07 20:19:33 by bdeomin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef SUPERTRAP_HPP
-#define SUPERTRAP_HPP
+#ifndef PLASMARIFLE_HPP
+# define PLASMARIFLE_HPP
 
-# include "FragTrap.hpp"
-# include "NinjaTrap.hpp"
+# include <iostream>
 
-class SuperTrap : public virtual FragTrap, public virtual NinjaTrap
+# include "AWeapon.hpp"
+
+class PlasmaRifle : public AWeapon
 {
 	public:
-		SuperTrap(const std::string name);
-		SuperTrap(const SuperTrap &obj);
-		~SuperTrap(void);
+					PlasmaRifle(void);
+					PlasmaRifle(const PlasmaRifle &src);
+					~PlasmaRifle(void);
 
-		SuperTrap &	operator=(const SuperTrap &rhs);
-		void rangedAttack(std::string const & target);
-		void meleeAttack(std::string const & target);
+		PlasmaRifle   &operator= (const PlasmaRifle &rhs);
+
+		virtual void  attack(void) const;
 };
 
 #endif

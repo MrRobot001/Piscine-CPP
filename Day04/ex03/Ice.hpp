@@ -1,31 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   SuperTrap.hpp                                      :+:      :+:    :+:   */
+/*   Ice.hpp                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bdeomin <bdeomin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/12/06 23:06:41 by bdeomin           #+#    #+#             */
-/*   Updated: 2019/12/07 19:26:34 by bdeomin          ###   ########.fr       */
+/*   Created: 2019/12/07 19:47:17 by bdeomin           #+#    #+#             */
+/*   Updated: 2019/12/07 20:19:33 by bdeomin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef SUPERTRAP_HPP
-#define SUPERTRAP_HPP
+#ifndef ICE_HPP
+# define ICE_HPP
 
-# include "FragTrap.hpp"
-# include "NinjaTrap.hpp"
+# include <iostream>
 
-class SuperTrap : public virtual FragTrap, public virtual NinjaTrap
+# include "AMateria.hpp"
+
+class Ice : public AMateria
 {
 	public:
-		SuperTrap(const std::string name);
-		SuperTrap(const SuperTrap &obj);
-		~SuperTrap(void);
+						Ice(void);
+						Ice(const Ice &src);
 
-		SuperTrap &	operator=(const SuperTrap &rhs);
-		void rangedAttack(std::string const & target);
-		void meleeAttack(std::string const & target);
+						~Ice(void);
+
+		Ice				&operator= (const Ice &rhs);
+
+		AMateria		*clone(void) const;
+		virtual void	use(ICharacter &target);
 };
 
 #endif

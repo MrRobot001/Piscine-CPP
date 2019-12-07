@@ -1,31 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   SuperTrap.hpp                                      :+:      :+:    :+:   */
+/*   Peon.hpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bdeomin <bdeomin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/12/06 23:06:41 by bdeomin           #+#    #+#             */
-/*   Updated: 2019/12/07 19:26:34 by bdeomin          ###   ########.fr       */
+/*   Created: 2019/12/07 19:28:29 by bdeomin           #+#    #+#             */
+/*   Updated: 2019/12/07 20:19:33 by bdeomin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef SUPERTRAP_HPP
-#define SUPERTRAP_HPP
+#ifndef PEON_HPP
+# define PEON_HPP
 
-# include "FragTrap.hpp"
-# include "NinjaTrap.hpp"
+# include <string>
+# include <iostream>
+# include "Victim.hpp"
 
-class SuperTrap : public virtual FragTrap, public virtual NinjaTrap
+class Peon : public Victim
 {
+	private:
+						std::string _name;
 	public:
-		SuperTrap(const std::string name);
-		SuperTrap(const SuperTrap &obj);
-		~SuperTrap(void);
-
-		SuperTrap &	operator=(const SuperTrap &rhs);
-		void rangedAttack(std::string const & target);
-		void meleeAttack(std::string const & target);
+						Peon(void);
+						Peon(const Peon &src);
+						Peon(std::string name);
+						~Peon(void);
+		Peon			&operator= (const Peon &rhs);
+		virtual void	getPolymorphed(void) const;
 };
 
 #endif

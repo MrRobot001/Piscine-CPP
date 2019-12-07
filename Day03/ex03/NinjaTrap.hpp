@@ -6,7 +6,7 @@
 /*   By: bdeomin <bdeomin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/06 22:26:42 by bdeomin           #+#    #+#             */
-/*   Updated: 2019/12/06 23:21:53 by bdeomin          ###   ########.fr       */
+/*   Updated: 2019/12/07 19:26:34 by bdeomin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 #include "FragTrap.hpp"
 #include "ScavTrap.hpp"
 
-class NinjaTrap : virtual public ClapTrap
+class NinjaTrap : ClapTrap
 {
 	public:
 		NinjaTrap(std::string _name);

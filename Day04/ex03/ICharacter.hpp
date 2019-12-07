@@ -1,31 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   SuperTrap.hpp                                      :+:      :+:    :+:   */
+/*   ICharacter.hpp                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bdeomin <bdeomin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/12/06 23:06:41 by bdeomin           #+#    #+#             */
-/*   Updated: 2019/12/07 19:26:34 by bdeomin          ###   ########.fr       */
+/*   Created: 2019/12/07 19:47:25 by bdeomin           #+#    #+#             */
+/*   Updated: 2019/12/07 20:19:33 by bdeomin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef SUPERTRAP_HPP
-#define SUPERTRAP_HPP
+#ifndef ICHARACTER_HPP
+# define ICHARACTER_HPP
 
-# include "FragTrap.hpp"
-# include "NinjaTrap.hpp"
+# include <string>
 
-class SuperTrap : public virtual FragTrap, public virtual NinjaTrap
+# include "AMateria.hpp"
+
+class AMateria;
+
+class ICharacter
 {
 	public:
-		SuperTrap(const std::string name);
-		SuperTrap(const SuperTrap &obj);
-		~SuperTrap(void);
+		virtual						~ICharacter(void) { return ; }
 
-		SuperTrap &	operator=(const SuperTrap &rhs);
-		void rangedAttack(std::string const & target);
-		void meleeAttack(std::string const & target);
+		virtual void				equip(AMateria *m) = 0;
+		virtual void				unequip(int idx) = 0;
+		virtual void				use(int idx, ICharacter &target) = 0;
+		virtual const std::string	&getName() const = 0;
 };
 
 #endif

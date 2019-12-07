@@ -1,31 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   SuperTrap.hpp                                      :+:      :+:    :+:   */
+/*   ISquad.hpp                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bdeomin <bdeomin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/12/06 23:06:41 by bdeomin           #+#    #+#             */
-/*   Updated: 2019/12/07 19:26:34 by bdeomin          ###   ########.fr       */
+/*   Created: 2019/12/07 19:33:59 by bdeomin           #+#    #+#             */
+/*   Updated: 2019/12/07 20:19:33 by bdeomin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef SUPERTRAP_HPP
-#define SUPERTRAP_HPP
+#ifndef ISQUAD_HPP
+# define ISQUAD_HPP
 
-# include "FragTrap.hpp"
-# include "NinjaTrap.hpp"
+# include "ISpaceMarine.hpp"
 
-class SuperTrap : public virtual FragTrap, public virtual NinjaTrap
+class ISquad
 {
 	public:
-		SuperTrap(const std::string name);
-		SuperTrap(const SuperTrap &obj);
-		~SuperTrap(void);
+		virtual ~ISquad(void) { return ; }
 
-		SuperTrap &	operator=(const SuperTrap &rhs);
-		void rangedAttack(std::string const & target);
-		void meleeAttack(std::string const & target);
+		virtual int				push(ISpaceMarine *marine) = 0;
+		virtual int				getCount(void) const = 0;
+		virtual ISpaceMarine	*getUnit(int n) const = 0;
+
 };
 
 #endif

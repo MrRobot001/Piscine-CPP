@@ -1,31 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   SuperTrap.hpp                                      :+:      :+:    :+:   */
+/*   Cure.hpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bdeomin <bdeomin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/12/06 23:06:41 by bdeomin           #+#    #+#             */
-/*   Updated: 2019/12/07 19:26:34 by bdeomin          ###   ########.fr       */
+/*   Created: 2019/12/07 19:46:59 by bdeomin           #+#    #+#             */
+/*   Updated: 2019/12/07 20:19:33 by bdeomin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef SUPERTRAP_HPP
-#define SUPERTRAP_HPP
+#ifndef CURE_HPP
+# define CURE_HPP
 
-# include "FragTrap.hpp"
-# include "NinjaTrap.hpp"
+# include <iostream>
 
-class SuperTrap : public virtual FragTrap, public virtual NinjaTrap
+# include "AMateria.hpp"
+
+class Cure : public AMateria
 {
-	public:
-		SuperTrap(const std::string name);
-		SuperTrap(const SuperTrap &obj);
-		~SuperTrap(void);
+    public:
+        Cure(void);
+        Cure(const Cure &src);
 
-		SuperTrap &	operator=(const SuperTrap &rhs);
-		void rangedAttack(std::string const & target);
-		void meleeAttack(std::string const & target);
+        ~Cure(void);
+
+        Cure            &operator= (const Cure &rhs);
+
+        AMateria        *clone(void) const;
+        virtual void    use(ICharacter &target);
 };
 
 #endif

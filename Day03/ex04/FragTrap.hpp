@@ -6,7 +6,7 @@
 /*   By: bdeomin <bdeomin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/06 13:44:23 by bdeomin           #+#    #+#             */
-/*   Updated: 2019/12/06 23:28:53 by bdeomin          ###   ########.fr       */
+/*   Updated: 2019/12/07 19:26:34 by bdeomin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 #include "ClapTrap.hpp"
 
-class FragTrap : virtual public ClapTrap
+class FragTrap : public ClapTrap
 {
 private:
 	static std::string	activating_vaulthunter[25];
