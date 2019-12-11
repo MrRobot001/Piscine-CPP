@@ -5,10 +5,12 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: bdeomin <bdeomin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/12/11 20:27:11 by bdeomin           #+#    #+#             */
+/*   Created: 2019/12/11 20:29:31 by bdeomin           #+#    #+#             */
 /*   Updated: 2019/12/11 20:36:15 by bdeomin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+
 
 #include <stdexcept>
 #include <string>
@@ -87,6 +89,18 @@ void Bureaucrat::signForm(Form &f)
 	{
 		std::cout << this->_name << " cannot sign " << f.getName()
 			<< " because the grade was too low." << std::endl;
+	}
+}
+
+void Bureaucrat::executeForm(Form const &f)
+{
+	try {
+		f.execute(*this);
+		std::cout << this->_name << " executes " << f.getName() << std::endl;
+	}
+	catch (std::exception &e)
+	{
+		std::cout << e.what() << std::endl;
 	}
 }
 

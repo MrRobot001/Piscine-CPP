@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: bdeomin <bdeomin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/12/11 20:26:56 by bdeomin           #+#    #+#             */
-/*   Updated: 2019/12/11 20:26:56 by bdeomin          ###   ########.fr       */
+/*   Created: 2019/12/11 20:28:43 by bdeomin           #+#    #+#             */
+/*   Updated: 2019/12/11 20:28:44 by bdeomin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@
 # include <stdexcept>
 # include <string>
 # include <iostream>
+
+# include "Form.hpp"
 
 class Bureaucrat
 {
@@ -36,7 +38,6 @@ class Bureaucrat
 			private:
 				int _grade;
 		};
-
 		class GradeTooLowException : public std::exception {
 			public:
 				GradeTooLowException(int grade);
@@ -62,6 +63,9 @@ class Bureaucrat
 		int getGrade(void) const;
 
 		void setGrade(int grade);
+
+		void signForm(Form &f);
+		void executeForm(Form const &f);
 
 		void incrementGrade(void);
 		void decrementGrade(void);

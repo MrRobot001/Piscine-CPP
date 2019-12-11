@@ -5,72 +5,74 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: bdeomin <bdeomin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/12/10 15:07:27 by bdeomin           #+#    #+#             */
-/*   Updated: 2019/12/10 18:33:06 by bdeomin          ###   ########.fr       */
+/*   Created: 2019/12/11 20:27:19 by bdeomin           #+#    #+#             */
+/*   Updated: 2019/12/11 20:27:20 by bdeomin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef BUREAUCRAT_HPP
-#define BUREAUCRAT_HPP
 
-#include <string>
-#include <iostream>
-#include <stdexcept>
 
-#include "Form.hpp"
+#ifndef BUREAUCRAT_CLASS_H
+# define BUREAUCRAT_CLASS_H
+
+# include <stdexcept>
+# include <string>
+# include <iostream>
+
+# include "Form.hpp"
 
 class Bureaucrat
 {
-    private:
-        const   std::string name;
-        int     grade;
-    public:
-        class GradeTooHighException : public std::exception
-        {
-        private:
-            int     grade;
-        public:
-            GradeTooHighException(int _grade);
-            GradeTooHighException(const GradeTooHighException &obj);
-            ~GradeTooHighException(void) throw();
+	public:
+		class GradeTooHighException : public std::exception {
+			public:
+				GradeTooHighException(int grade);
+				GradeTooHighException(GradeTooHighException const &obj);
+				~GradeTooHighException(void) throw();
 
-            GradeTooHighException &operator=(const GradeTooHighException &gthe);
+				GradeTooHighException &operator=(GradeTooHighException const &rhs);
 
-            const char          *what(void) const throw();
-        };
+				const char *what(void) const throw();
 
-        class GradeTooLowException : public std::exception
-        {
-        private:
-            int     grade;
-        public:
-            GradeTooLowException(int _grade);
-            GradeTooLowException(const GradeTooLowException &obj);
-            ~GradeTooLowException(void) throw();
+				int getGrade(void) const;
+			private:
+				int _grade;
+		};
+		class GradeTooLowException : public std::exception {
+			public:
+				GradeTooLowException(int grade);
+				GradeTooLowException(GradeTooLowException const &obj);
+				~GradeTooLowException(void) throw();
 
-            GradeTooLowException &operator=(const GradeTooLowException &gtle);
+				GradeTooLowException &operator=(GradeTooLowException const &rhs);
 
-            const char          *what(void) const throw();
-        };
+				const char *what(void) const throw();
 
-        Bureaucrat(const std::string _name, int _grade);
-        Bureaucrat(const Bureaucrat &bureaucrat);
+				int getGrade(void) const;
+			private:
+				int _grade;
+		};
 
-        Bureaucrat &operator=(const Bureaucrat &bureaucrat);
+		Bureaucrat(const std::string name, int grade);
+		Bureaucrat(Bureaucrat const &obj);
+		~Bureaucrat(void);
 
-        const std::string   getName(void) const;
-        int                 getGrade(void) const;
+		Bureaucrat &operator=(Bureaucrat const &rhs);
 
-        void                setGrade(int _grade);
+		const std::string getName(void) const;
+		int getGrade(void) const;
 
-        void                incrementGrade(void);
-        void                decrementGrade(void);
+		void setGrade(int grade);
 
-        void                signForm(Form &f);
+		void signForm(Form &f);
 
-        ~Bureaucrat(void);
+		void incrementGrade(void);
+		void decrementGrade(void);
+	private:
+		const std::string _name;
+		int	_grade;
 };
 
-std::ostream &operator<< (std::ostream &os, Bureaucrat const &bureaucrat);
+std::ostream &operator<<(std::ostream &o, Bureaucrat const &rhs);
 
 #endif

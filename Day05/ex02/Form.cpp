@@ -5,7 +5,7 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: bdeomin <bdeomin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/12/11 20:27:25 by bdeomin           #+#    #+#             */
+/*   Created: 2019/12/11 20:27:49 by bdeomin           #+#    #+#             */
 /*   Updated: 2019/12/11 20:36:15 by bdeomin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
@@ -19,8 +19,12 @@
 #include "Form.hpp"
 #include "Bureaucrat.hpp"
 
-Form::Form(const std::string name, int sign, int exec) :
-	_name(name), _gradeSign(sign), _gradeExec(exec), _signed(false)
+Form::Form(void) :
+	_name("default"), _gradeSign(150), _gradeExec(150), _signed(false),
+	_target("default_target") {};
+Form::Form(const std::string name, int sign, int exec, std::string target) :
+	_name(name), _gradeSign(sign), _gradeExec(exec), _signed(false),
+	_target(target)
 {
 	if (sign < 1)
 		throw GradeTooHighException(sign);
@@ -35,7 +39,7 @@ Form::Form(const std::string name, int sign, int exec) :
 
 Form::Form(Form const &obj) :
 	_name(obj._name), _gradeSign(obj._gradeSign), _gradeExec(obj._gradeExec),
-	_signed(obj._signed)
+	_signed(obj._signed), _target(obj._target)
 {}
 
 Form::~Form(void)
@@ -73,12 +77,28 @@ bool Form::isSigned(void) const
 	return this->_signed;
 }
 
+std::string Form::getTarget(void) const
+{
+	return this->_target;
+}
+
 void Form::beSigned(Bureaucrat &b)
 {
 	if (b.getGrade() > this->_gradeSign)
 		throw GradeTooLowException(b.getGrade());
 
 	this->_signed = true;
+}
+
+void Form::execute(Bureaucrat const &b) const
+{
+	if (!this->_signed)
+		throw NotSignedException();
+
+	if (b.getGrade() > this->_gradeExec)
+		throw GradeTooLowException(b.getGrade());
+
+	this->_execute(b);
 }
 
 typedef Form::GradeTooHighException GradeTooHighException;
@@ -139,4 +159,24 @@ int GradeTooLowException::getGrade(void) const
 const char *GradeTooLowException::what(void) const throw()
 {
 	return "Grade is too low";
+}
+
+typedef Form::NotSignedException NotSignedException;
+
+NotSignedException::NotSignedException(void) {}
+
+NotSignedException::NotSignedException(NotSignedException const &) {}
+
+NotSignedException::~NotSignedException(void) throw() {}
+
+NotSignedException &NotSignedException::operator=(
+		NotSignedException const &
+	)
+{
+	return *this;
+}
+
+const char *NotSignedException::what(void) const throw()
+{
+	return "Form not signed";
 }

@@ -5,74 +5,74 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: bdeomin <bdeomin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/12/10 17:49:33 by bdeomin           #+#    #+#             */
-/*   Updated: 2019/12/10 18:44:36 by bdeomin          ###   ########.fr       */
+/*   Created: 2019/12/11 20:27:29 by bdeomin           #+#    #+#             */
+/*   Updated: 2019/12/11 20:36:15 by bdeomin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FORM_CLASS_H
-#define FORM_CLASS_H
 
-#include <stdexcept>
-#include <string>
-#include <iostream>
+
+#ifndef FORM_CLASS_H
+# define FORM_CLASS_H
+
+# include <stdexcept>
+# include <string>
+# include <iostream>
 
 class Bureaucrat;
 
 class Form
 {
-	private:
-		const std::string	name;
-		const int			gradeSign;
-		const int			gradeExec;
-		bool				sign_it;
 	public:
-
-		class GradeTooHighException : public std::exception
-		{
-			private:
-				int grade;
+		class GradeTooHighException : public std::exception {
 			public:
-				GradeTooHighException(int _grade);
-				GradeTooHighException(const GradeTooHighException &obj);
+				GradeTooHighException(int grade);
+				GradeTooHighException(GradeTooHighException const &obj);
 				~GradeTooHighException(void) throw();
 
-				GradeTooHighException &operator=(const GradeTooHighException &gthe);
+				GradeTooHighException &operator=(GradeTooHighException const &rhs);
 
 				const char *what(void) const throw();
 
 				int getGrade(void) const;
+			private:
+				int _grade;
 		};
 
-		class GradeTooLowException : public std::exception
-		{
-			private:
-				int grade;
+		class GradeTooLowException : public std::exception {
 			public:
-				GradeTooLowException(int _grade);
-				GradeTooLowException(const GradeTooLowException &obj);
+				GradeTooLowException(int grade);
+				GradeTooLowException(GradeTooLowException const &obj);
 				~GradeTooLowException(void) throw();
 
-				GradeTooLowException &operator=(const GradeTooLowException &gtle);
+				GradeTooLowException &operator=(GradeTooLowException const &rhs);
 
 				const char *what(void) const throw();
 
 				int getGrade(void) const;
+			private:
+				int _grade;
 		};
 
-		Form(const std::string _name, const int _sign, int _exet);
+		Form(const std::string name, const int sign, int exec);
 		Form(Form const &obj);
 		~Form(void);
 
-		Form	&operator=(const Form &form);
+		Form &operator=(Form const &rhs);
 
-		const std::string	getName(void) const;
-		int					getGrateSign(void) const;
-		int					getGrateExec(void) const;
-		bool				isSigned(void) const;
-		void				beSigned(Bureaucrat &bureaucrat);
+		const std::string getName(void) const;
+		int getGradeSign(void) const;
+		int getGradeExec(void) const;
+		bool isSigned(void) const;
+
+		void beSigned(Bureaucrat &b);
+	private:
+		const std::string _name;
+		const int _gradeSign;
+		const int _gradeExec;
+		bool _signed;
 };
 
-std::ostream &operator<<(std::ostream &os, const Form form);
+std::ostream &operator<<(std::ostream &o, Form const &rhs);
 
 #endif

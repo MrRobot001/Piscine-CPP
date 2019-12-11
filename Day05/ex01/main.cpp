@@ -5,110 +5,111 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: bdeomin <bdeomin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/12/10 15:07:25 by bdeomin           #+#    #+#             */
-/*   Updated: 2019/12/10 18:50:12 by bdeomin          ###   ########.fr       */
+/*   Created: 2019/12/11 20:27:34 by bdeomin           #+#    #+#             */
+/*   Updated: 2019/12/11 20:37:38 by bdeomin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+
 
 #include "Bureaucrat.hpp"
 #include "Form.hpp"
 
-int		main(void)
+int main(void)
 {
-	std::cout << "Bureaucrat" << std::endl;
-	Bureaucrat people1("person1", 69);
-	std::cout << people1 << std::endl;
+	std::cout << "__________ BUREAUCRAT __________" << std::endl;
+	std::cout << " * Creation" << std::endl;
+	Bureaucrat b("Bob", 42);
+	std::cout << b << std::endl;
 
-	std::cout << "- set grade" << std::endl;
-	people1.setGrade(121);
+	std::cout << " * Set grade" << std::endl;
+	b.setGrade(100);
+	std::cout << b << std::endl;
 
-	std::cout << "- too low grade" << std::endl;
-	try
-	{
-		Bureaucrat people2("person2", 151);
+	std::cout << " * Too low grade" << std::endl;
+	try {
+		Bureaucrat bLow("Alice", 420);
 	}
-	catch (Bureaucrat::GradeTooLowException &event)
+	catch (Bureaucrat::GradeTooLowException &e)
 	{
-		std::cout << event.what() << std::endl;
-	}
-
-	std::cout << "- too high grade" << std::endl;
-	try
-	{
-		Bureaucrat people3("person3", 0);
-	}
-	catch (Bureaucrat::GradeTooHighException &event)
-	{
-		std::cout << event.what() << std::endl;
+		std::cout << e.what() << ": " << e.getGrade() << std::endl;
 	}
 
-	std::cout << "- increment" << std::endl;
-	try
+	std::cout << " * Too high" << std::endl;
+	try { Bureaucrat bHigh("Peter", 0);
+	}
+	catch (Bureaucrat::GradeTooHighException &e)
 	{
+		std::cout << e.what() << ": " << e.getGrade() << std::endl;
+	}
+
+	std::cout << " * Increment" << std::endl;
+	try {
 		while (true)
 		{
-			people1.incrementGrade();
-			std::cout << people1.getGrade() << " ";
+			b.incrementGrade();
+			std::cout << b.getGrade() << ", ";
 		}
 	}
-	catch (std::exception &event)
+	catch (std::exception &e)
 	{
-		std::cout << event.what() << std::endl;
+		std::cout << e.what() << std::endl;
 	}
-	std::cout << people1 << std::endl;
-	std::cout << "- decrement" << std::endl;
-	try
-	{
+	std::cout << b << std::endl;
+
+	std::cout << " * Decrement" << std::endl;
+	try {
 		while (true)
 		{
-			people1.decrementGrade();
-			std::cout << people1.getGrade() << " ";
+			b.decrementGrade();
+			std::cout << b.getGrade() << ", ";
 		}
 	}
-	catch (std::exception &event)
+	catch (std::exception &e)
 	{
-		std::cout << event.what() << std::endl;
+		std::cout << e.what() << std::endl;
 	}
-	std::cout << people1 << std::endl;
+	std::cout << b << std::endl;
 
+	std::cout << "__________ FORM __________" << std::endl;
 
-	std::cout << std::endl << "Form" << std::endl;
-	Form f("person1", 42, 42);
+	std::cout << " * Creation" << std::endl;
+	Form f("Bob", 42, 42);
 	std::cout << f << std::endl;
 
-	std::cout << " - low grade" << std::endl;
+	std::cout << " * Too low grade" << std::endl;
 	try {
-		Form fLow("person2", 420, 42);
+		Form fLow("Alice", 420, 42);
 	}
-	catch (Form::GradeTooLowException &event)
+	catch (Form::GradeTooLowException &e)
 	{
-		std::cout << event.what() << std::endl;
+		std::cout << e.what() << ": " << e.getGrade() << std::endl;
 	}
 	try {
-		Form fLow("person2", 42, 420);
+		Form fLow("Alice", 42, 420);
 	}
-	catch (Form::GradeTooLowException &event)
+	catch (Form::GradeTooLowException &e)
 	{
-		std::cout << event.what() << std::endl;
+		std::cout << e.what() << ": " << e.getGrade() << std::endl;
 	}
 
-	std::cout << " - too high" << std::endl;
+	std::cout << " * Too high" << std::endl;
 	try {
-		Form fHigh("person3", 0, 42);
+		Form fHigh("Peter", 0, 42);
 	}
-	catch (Form::GradeTooHighException &event)
+	catch (Form::GradeTooHighException &e)
 	{
-		std::cout << event.what() << std::endl;
+		std::cout << e.what() << ": " << e.getGrade() << std::endl;
 	}
 	try {
-		Form fHigh("person3", 42, 0);
+		Form fHigh("Peter", 42, 0);
 	}
-	catch (Form::GradeTooHighException &event)
+	catch (Form::GradeTooHighException &e)
 	{
-		std::cout << event.what()  << std::endl;
+		std::cout << e.what() << ": " << e.getGrade() << std::endl;
 	}
 
-	std::cout << std::endl << "Sign" << std::endl;
+	std::cout << "__________ SIGN __________" << std::endl;
 	{
 		Bureaucrat signer("Signer", 20);
 		Form form("Form", 10, 10);
@@ -119,9 +120,9 @@ int		main(void)
 		try {
 			form.beSigned(signer);
 		}
-		catch (std::exception &event)
+		catch (std::exception &e)
 		{
-			std::cout << event.what() << std::endl;
+			std::cout << e.what() << std::endl;
 		}
 
 		signer.setGrade(10);
@@ -141,7 +142,4 @@ int		main(void)
 		signer.signForm(form);
 		signer.signForm(form);
 	}
-
-
-	return (0);
 }
