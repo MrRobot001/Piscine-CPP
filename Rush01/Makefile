@@ -6,7 +6,7 @@
 #    By: bdeomin <bdeomin@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/12/15 17:14:33 by bdeomin           #+#    #+#              #
-#    Updated: 2019/12/15 19:08:23 by bdeomin          ###   ########.fr        #
+#    Updated: 2019/12/15 19:20:11 by bdeomin          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@ SRC_DIR	=		./src/
 OBJ_DIR	=		./obj/
 
 NAME	=		ft_gkrellm
-SRC		=		main.cpp Part1.cpp mlx.cpp
+SRC		=		main.cpp Part1.cpp grafic.cpp IMonitorModule.cpp IMonitorDisplay.cpp
 
 O_FILES	=		$(addprefix $(OBJ_DIR), $(SRC:.cpp=.o))
 FLAGS	=		-Wall -Wextra -Werror -std=c++98

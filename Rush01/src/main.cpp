@@ -1,16 +1,5 @@
-#include <unistd.h>
-#include <limits.h>
-#include <iostream>
 #include "Part1.hpp"
-#include <sys/utsname.h>
-#include <sys/types.h>
-#include <sys/sysctl.h>
-#include <ncurses.h>
-
-#include	"mlx.h"
-
-
-void mlx(Part1 one);
+#include "grafic.hpp"
 
 void    initColor(void)
 {
@@ -19,15 +8,16 @@ void    initColor(void)
     init_pair(1,  COLOR_RED,     COLOR_BLACK);
     init_pair(2,  COLOR_GREEN,   COLOR_BLACK);
     init_pair(3,  COLOR_YELLOW,  COLOR_BLACK);
+    init_pair(14,  COLOR_YELLOW,  COLOR_YELLOW);
     init_pair(4,  COLOR_BLUE,    COLOR_BLACK);
     init_pair(5,  COLOR_MAGENTA, COLOR_BLACK);
-    init_pair(6,  COLOR_CYAN,    COLOR_BLACK);
+    init_pair(6,  COLOR_CYAN,    COLOR_CYAN);
     init_pair(7,  COLOR_BLUE,    COLOR_WHITE);
     init_pair(8,  COLOR_WHITE,   COLOR_BLACK);
     init_pair(9,  COLOR_BLACK,   COLOR_GREEN);
     init_pair(10, COLOR_BLUE,    COLOR_YELLOW);
-    init_pair(11, COLOR_WHITE,   COLOR_BLUE);
-    init_pair(12, COLOR_WHITE,   COLOR_MAGENTA);
+    init_pair(11, COLOR_BLUE,   COLOR_BLUE);
+    init_pair(12, COLOR_MAGENTA,   COLOR_MAGENTA);
     init_pair(13, COLOR_BLACK,   COLOR_CYAN);
 }
 
@@ -49,8 +39,26 @@ void    line(void)
 int
 main(void) {
     Part1 one;
+    Grafic test;
+    Grafic rams;
+    Grafic netIn;
+    Grafic netOut;
+    int    oldx = std::atoi(one.networkInSize.c_str());
+    int    oldy = std::atoi(one.networkOutSize.c_str());
     struct utsname osInfo = one.osInfo;
-    mlx(one);
+
+    uint_fast16_t maxx, maxy;
+    getmaxyx(stdscr, maxy, maxx);
+    rect xr = { {0, 0, 0}, {maxx , maxy, 1} };
+    rect ramsxr = { {0, 0, 0}, {maxx , maxy, 1} };
+    rect netInsxr = { {0, 0, 0}, {maxx , maxy, 1} };
+    rect netOutsxr = { {0, 0, 0}, {maxx , maxy, 1} };
+    std::vector<SpaceObject> dataSOBJ;
+    test.setBounds(xr);
+    netIn.setBounds(netInsxr);
+    netOut.setBounds(netOutsxr);
+    rams.setBounds(ramsxr);
+
     initscr();
     cbreak();
     nodelay(stdscr, true);
@@ -60,12 +68,141 @@ main(void) {
     initColor();
     color_set(1, NULL);
     refresh();
+    getmaxyx(stdscr, maxy, maxx);
+    maxx -= COLS / 4;
+    test.setBoundsUpdate(maxx, maxy);
+    rams.setBoundsUpdate(maxx, maxy);
+    netIn.setBoundsUpdate(maxx, maxy);
+    netOut.setBoundsUpdate(maxx, maxy);
     int ch = 1;
     while (ch)
     {
         line();
+        mvaddstr((LINES/3) + 15, COLS - (COLS / 4) + 8, "       ");
+        dataSOBJ = test.getData();
+        for (int i = 0; i < test.getSize(); ++i)
+        {
+            int height = dataSOBJ[i].getPos().height;
+            while(height-- >= 0)
+            {
+                mvaddch(dataSOBJ[i].getPos().y - height, dataSOBJ[i].getPos().x, ' ');
+            }
+        }
+        dataSOBJ = rams.getData();
+        for (int i = 0; i < test.getSize(); ++i)
+        {
+            int height = dataSOBJ[i].getPos().height;
+            while(height-- >= 0)
+            {
+                mvaddch(dataSOBJ[i].getPos().y - height, dataSOBJ[i].getPos().x, ' ');
+            }
+        }
+        dataSOBJ = netIn.getData();
+        for (int i = 0; i < test.getSize(); ++i)
+        {
+            int height = dataSOBJ[i].getPos().height;
+            while(height-- >= 0)
+            {
+                mvaddch(dataSOBJ[i].getPos().y - height, dataSOBJ[i].getPos().x, ' ');
+            }
+        }
+        dataSOBJ = netOut.getData();
+        for (int i = 0; i < test.getSize(); ++i)
+        {
+            int height = dataSOBJ[i].getPos().height;
+            while(height-- >= 0)
+            {
+                mvaddch(dataSOBJ[i].getPos().y - height, dataSOBJ[i].getPos().x, ' ');
+            }
+        }
         one.updateAll();
+        test.update(LINES / 4, static_cast<int>(one.cpuUsage * 0.1));
+        // mvprintw(7, 5, "%s", one.networkInSize.c_str());
+        // mvprintw(8, 5, "%s", one.networkOutSize.c_str());
+        rams.update((LINES / 4) * 2, static_cast<int>(one.usedRam / (float)8024 * 10));
+        int height = 1;
+        int diff = std::atoi(one.networkInSize.c_str());
+        if (diff - oldx >= 10)
+            height = 10;
+        else if (diff != oldx)
+            height = diff - oldx;
+        else
+            height = 1;
+        netIn.update((LINES / 4) * 3, height);
+        height = 1;
+        diff = std::atoi(one.networkOutSize.c_str());
+        if (diff - oldy >= 10)
+            height = 10;
+        else if (diff != oldy)
+            height = diff - oldy;
+        else
+            height = 1;
+        netOut.update((LINES / 4) * 4, height);
+        color_set(14, NULL);
+        dataSOBJ = test.getData();
+        for (int i = 0; i < test.getSize(); ++i)
+        {
+            int height = dataSOBJ[i].getPos().height;
+            while(height-- >= 0)
+            {
+                mvaddch(dataSOBJ[i].getPos().y - height, dataSOBJ[i].getPos().x, '*');
+            }
+        }
+        color_set(12, NULL);
+        dataSOBJ = rams.getData();
+        for (int i = 0; i < test.getSize(); ++i)
+        {
+            int height = dataSOBJ[i].getPos().height;
+            while(height-- >= 0)
+            {
+                mvaddch(dataSOBJ[i].getPos().y - height, dataSOBJ[i].getPos().x, '*');
+            }
+        }
+
+        // NETWORK
+
+        color_set(11, NULL);
+        dataSOBJ = netIn.getData();
+        for (int i = 0; i < test.getSize(); ++i)
+        {
+            int height = dataSOBJ[i].getPos().height;
+            while(height-- >= 0)
+            {
+                mvaddch(dataSOBJ[i].getPos().y - height, dataSOBJ[i].getPos().x, '*');
+            }
+        }
+
         color_set(6, NULL);
+        dataSOBJ = netOut.getData();
+        for (int i = 0; i < test.getSize(); ++i)
+        {
+            int height = dataSOBJ[i].getPos().height;
+            while(height-- >= 0)
+            {
+                mvaddch(dataSOBJ[i].getPos().y - height, dataSOBJ[i].getPos().x, '*');
+            }
+        }
+        oldx = std::atoi(one.networkInSize.c_str());
+        oldy = std::atoi(one.networkOutSize.c_str());
+
+        color_set(14, NULL);
+        mvaddstr((LINES/3) - 8, COLS - (COLS / 4) + 4, "*");
+        color_set(8, NULL);
+        mvaddstr((LINES/3) - 8, COLS - (COLS / 4) + 6, " - Cpu usage");
+        color_set(12, NULL);
+        mvaddstr((LINES/3) - 7, COLS - (COLS / 4) + 4, "*");
+        color_set(8, NULL);
+        mvaddstr((LINES/3) - 7, COLS - (COLS / 4) + 6, " - Ram usage");
+        color_set(11, NULL);
+        mvaddstr((LINES/3) - 6, COLS - (COLS / 4) + 4, "*");
+        color_set(8, NULL);
+        mvaddstr((LINES/3) - 6, COLS - (COLS / 4) + 6, " - Network in");
+        color_set(6, NULL);
+        mvaddstr((LINES/3) - 5, COLS - (COLS / 4) + 4, "*");
+        color_set(8, NULL);
+        mvaddstr((LINES/3) - 5, COLS - (COLS / 4) + 6, " - Network out");
+
+        color_set(1, NULL);
         mvaddstr((LINES/3) - 1, COLS - (COLS / 4) + strlen("User info") - 4, "User info");
         color_set(3, NULL);
         mvaddstr((LINES/3) + 1, COLS - (COLS / 4) + strlen(one.username.c_str()), one.username.c_str());
@@ -100,7 +237,7 @@ main(void) {
         mvprintw((LINES/3) + 19, COLS - (COLS / 4) + 7, "%s", one.cpuName.c_str());
 
         color_set(5, NULL);
-        mvprintw((LINES/3) + 20, COLS - (COLS / 4) + 7, "%s", one.cpuCores.c_str());
+        mvprintw((LINES/3) + 20, COLS - (COLS / 4) + 7, "%s %s", "NCore:", one.cpuCores.c_str());
 
         color_set(5, NULL);
         mvprintw((LINES/3) + 21, COLS - (COLS / 4) + 7, "%.1f%c", one.cpuUsage, '%');
@@ -115,21 +252,11 @@ main(void) {
         ch = getch();
         if (ch == 'q')
             break;
+        refresh();
+        usleep(100000);
         clear();
-        usleep(500000);
     }
 
     endwin();
-
-
-    std::cout << one.hostname + " " <<  one.username << std::endl;
-    std::cout << osInfo.sysname << std::endl;
-    std::cout << osInfo.nodename << std::endl;
-    std::cout << osInfo.release << std::endl;
-    std::cout << osInfo.version << std::endl;
-    std::cout << osInfo.machine << std::endl;
-	std::cout << one.usedRam << std::endl;
-	std::cout << one.freeRam << std::endl;
-    std::cout << one.cpuUsage << std::endl;
 
 }
