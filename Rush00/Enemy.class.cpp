@@ -18,7 +18,7 @@ Enemy::Enemy(void)
 {
 	std::cout << "Default constructor called" << std::endl;
 	this->_name = "Default Enemy";
-	this->_maxLives = 2;
+	this->_maxLives = 1;
 	this->_lives = this->_maxLives;
 	this->_shootDir = 1;
 	this->_shootCount = rand() % 10;
@@ -39,7 +39,7 @@ Enemy::Enemy(const Enemy & copy){
 Enemy::Enemy(std::string name){
 	std::cout << "Parametric constructor called" << std::endl;
 	this->_name = name;
-	this->_maxLives = 2;
+	this->_maxLives = 1;
 	this->_lives = this->_maxLives;
 	this->_shootDir = 1;
 	this->_shootCount = rand() % 10;

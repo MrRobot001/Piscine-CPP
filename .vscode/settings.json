@@ -63,5 +63,6 @@
 		"fstream": "cpp",
 		"clocale": "cpp",
 		"climits": "cpp"
-	}
+	},
+	"editor.fontFamily": "MesloLGS NF"
 }
